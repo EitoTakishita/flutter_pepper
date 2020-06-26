@@ -1,46 +1,29 @@
-import 'package:todo_app/app.service/database.dart';
-import 'package:todo_app/app.entity/todo.dart';
+import 'package:flutter_pepper/app/repository/article_repository.dart';
+import 'package:flutter_pepper/app/resorces/models/model.dart';
+import 'package:rxdart/rxdart.dart';
 
-class TodoDao {
-  final dbProvider = DatabaseService.dbProvider;
-  final tableName = DatabaseService.todoTableName;
+class ArticleBloc {
 
-  Future<int> create(Todo todo) async {
-    final db = await dbProvider.database;
-    var result = db.insert(tableName, todo.toDatabaseJson());
-    return result;
+  // ObserverとStreamを継承したSubjectを定義
+  final _articleInitialPublishSubject = PublishSubject<Article>();
+
+  ArticleBloc() {
+    fetchArticle();
   }
 
-  Future<List<Todo>> getAll() async {
-    final db = await dbProvider.database;
-    List<Map<String, dynamic>> result = await db.query(tableName);
-    List<Todo> todos = result.isNotEmpty
-        ? result.map((item) => Todo.fromDatabaseJson(item)).toList()
-        : [];
-    return todos;
+  // Streamは連続したObserverの配列みたいなものを定義
+  Stream<Article> get articleInitialStream => _articleInitialPublishSubject.stream;
+
+  // StreamにObserverをaddするためのアクセッサを定義
+  Sink<Article> get articleInitialSink => _articleInitialPublishSubject.sink;
+
+  // Repository層を経由してRequest
+  void fetchArticle() async {
+    final _articleResponse = await ArticleRepository().fetchArticleRepository();
+    articleInitialSink.add(_articleResponse);
   }
 
-  Future<int> update(Todo todo) async {
-    final db = await dbProvider.database;
-    var result = await db.update(tableName, todo.toDatabaseJson(),
-        where: "id = ?", whereArgs: [todo.id]);
-    return result;
+  void dispose() {
+    _articleInitialPublishSubject.close();
   }
-
-  Future<int> delete(int id) async {
-    final db = await dbProvider.database;
-    var result = await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
-    return result;
-  }
-
-  //not use this sample
-  Future deleteAll() async {
-    final db = await dbProvider.database;
-    var result = await db.delete(
-      tableName,
-    );
-
-    return result;
-  }
-
 }

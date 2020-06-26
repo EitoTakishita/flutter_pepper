@@ -1,17 +1,20 @@
-import 'package:todo_app/app.dao/todo_dao.dart';
-import 'package:todo_app/app.entity/todo.dart';
+import 'dart:convert';
 
-class TodoRepository {
-  final todoDao = TodoDao();
+import 'package:flutter_pepper/app/resorces/api/article_api.dart';
+import 'package:flutter_pepper/app/resorces/models/model.dart';
 
-  Future getAllTodos() => todoDao.getAll();
+class ArticleRepository {
+  fetchArticleRepository() async {
 
-  Future insertTodo(Todo todo) => todoDao.create(todo);
+    final String _requestArticleUrl = 'https://arthur-foreign.com/articles/1';
 
-  Future updateTodo(Todo todo) => todoDao.update(todo);
+    final _articleResponse = await ArticleApiProvider().fetchArticleApi(_requestArticleUrl);
 
-  Future deleteTodoById(int id) => todoDao.delete(id);
-
-  //not use this sample
-  Future deleteAllTodos() => todoDao.deleteAll();
+    if (_articleResponse.statusCode == 200) {
+      final _decodedArticleResponse = await json.decode(_articleResponse.body);
+      return Article.fromJson(_decodedArticleResponse);
+    } else {
+      throw Exception("Error");
+    }
+  }
 }
