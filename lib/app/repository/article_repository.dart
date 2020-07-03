@@ -6,9 +6,9 @@ import 'package:flutter_pepper/app/resorces/models/model.dart';
 class ArticleRepository {
   fetchArticleRepository() async {
 
-    final String _requestArticleUrl = 'https://arthur-foreign.com/articles/1';
+    final String _requestHotPepperUrl = 'http://webservice.recruit.co.jp/';
 
-    final _articleResponse = await ArticleApiProvider().fetchArticleApi(_requestArticleUrl);
+    final _articleResponse = await ArticleApiProvider().fetchArticleApi(_requestHotPepperUrl);
 
     if (_articleResponse.statusCode == 200) {
       final _decodedArticleResponse = await json.decode(_articleResponse.body);

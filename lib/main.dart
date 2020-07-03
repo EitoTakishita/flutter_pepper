@@ -1,7 +1,7 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:animated_card/animated_card.dart';
+import 'package:flutter_pepper/app/widgets/screens/article_screen.dart';
 
 /// This is a reimplementation of the default Flutter application using provider + [ChangeNotifier].
 
@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class ListagemScreen extends StatelessWidget {
+  final lista = List.generate(50, (index) => index);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,19 +32,30 @@ class ListagemScreen extends StatelessWidget {
         itemCount: lista.length,
         itemBuilder: (context, index) {
           return AnimatedCard(
-            direction: AnimatedCardDirection.left, //Initial animation direction
-            initDelay: Duration(milliseconds: 0), //Delay to initial animation
-            duration: Duration(seconds: 1), //Initial animation duration
+            direction: AnimatedCardDirection.left,
+            //Initial animation direction
+            initDelay: Duration(milliseconds: 0),
+            //Delay to initial animation
+            duration: Duration(seconds: 1),
+            //Initial animation duration
 //            onRemove: () => lista.removeAt(index), //Implement this action to active dismiss
-            curve: Curves.bounceOut, //Animation curve
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Card(
-                elevation: 5,
-                child: ListTile(
-                  title: Container(
-                    height: 150,
-                    child: Center(child: Text("$index")),
+            curve: Curves.bounceOut,
+            //Animation curve
+            child: GestureDetector(
+              onTap: () {
+                print("Takishita tap");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ArticleScreen()));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  elevation: 5,
+                  child: ListTile(
+                    title: Container(
+                      height: 150,
+                      child: Center(child: Text("$index")),
+                    ),
                   ),
                 ),
               ),

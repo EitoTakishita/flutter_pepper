@@ -7,9 +7,15 @@ class ArticleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<ArticleBloc>(
-      builder: (context) => ArticleBloc(),
-      child: Template(),
+      create: (context) => ArticleBloc(),
       dispose: (context, value) => value.dispose(),
+      child: Template(),
     );
+
+//    return Provider<ArticleBloc>(
+//      builder: (context) => ArticleBloc(),
+//      child: Template(),
+//      dispose: (context, value) => value.dispose(),
+//    );
   }
 }

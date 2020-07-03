@@ -9,7 +9,7 @@ class Template extends StatelessWidget {
     return Scaffold(
         body: Container(
           child: StreamBuilder(
-            stream: _bloc.articleStream,
+            stream: _bloc.articleInitialStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Container(
