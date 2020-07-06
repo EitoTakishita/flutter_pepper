@@ -11,11 +11,5 @@ class ArticleScreen extends StatelessWidget {
       dispose: (context, value) => value.dispose(),
       child: Template(),
     );
-
-//    return Provider<ArticleBloc>(
-//      builder: (context) => ArticleBloc(),
-//      child: Template(),
-//      dispose: (context, value) => value.dispose(),
-//    );
   }
 }

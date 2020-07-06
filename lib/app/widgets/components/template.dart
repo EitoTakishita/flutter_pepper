@@ -8,24 +8,21 @@ class Template extends StatelessWidget {
     final ArticleBloc _bloc = Provider.of<ArticleBloc>(context);
     return Scaffold(
         body: Container(
-          child: StreamBuilder(
-            stream: _bloc.articleInitialStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  child: Column(
-                      children: <Widget>[
-                        // ここで、Organisms層のComponentを呼び出す
-                        // snapshot.data.xxxxのような形で受け取ったオブジェクトを描画
-                      ]
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
-        )
-    );
+      child: StreamBuilder(
+        stream: _bloc.articleInitialStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              child: Column(children: <Widget>[
+                // ここで、Organisms層のComponentを呼び出す
+                // snapshot.data.xxxxのような形で受け取ったオブジェクトを描画
+              ]),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    ));
   }
 }
