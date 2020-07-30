@@ -1,32 +1,26 @@
-import 'package:flutter_pepper/app/repository/article_repository.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_pepper/app/repository/pepper_repository.dart';
+import 'package:flutter_pepper/app/resorces/api/pepper_api.dart';
 import 'package:flutter_pepper/app/resorces/models/model.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:state_notifier/state_notifier.dart';
 
-part 'viewmodels.freezed.dart';
-part 'viewmodels.g.dart';
+class PepperViewModel with ChangeNotifier {
 
-@freezed
-abstract class ShopsState with _$ShopsState {
-  const factory ShopsState({
-    @Default([]) Shops shops,
-  }) = _ShopsState;
+  final PepperRepository repo = PepperRepository(
+      PepperApiProvider());
+  Shops _shops = Shops();
 
-  factory ShopsState.fromJson(Map<String, dynamic> json) =>
-      _$ShopsStateFromJson(json);
-}
+  Shops get shops => _shops;
 
-// counter_controller.dart
-class ShopController extends StateNotifier<ShopsState> {
-  ShopController(this.repository) : super(ShopsState(shops: Shops()));
+  bool _initialized = false;
 
-  final ArticleRepository repository;
+  bool get initialized => _initialized;
 
-  Future<void> fetchCount() async {
-    state = state.copyWith(shops: await repository.getShops());
+  Future<void> setPepperDetail() async {
+    _shops = await repo.fetchPepperDetail();
+    notifyListeners();
   }
 
-  void increment() {
-    state = state.copyWith(shops: state.shops);
+  void setInitialized() {
+    _initialized = true;
   }
 }
