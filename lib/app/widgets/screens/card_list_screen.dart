@@ -25,12 +25,48 @@ class CardListScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Card(
                   elevation: 5,
-                  child: ListTile(
-                    title: Container(
-                      height: 150,
-                      child: Center(child: Text("$index")),
+                  child: Container(
+                    height: 150,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Image.asset(
+                            'images/sample.jpg',
+                            fit: BoxFit.cover,
+                            width: 130,
+                            height: 130,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            'ロケーション：',
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontSize: 14,
+                              fontFamily: 'Noto Sans CJK JP',
+                              letterSpacing: 0.25,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+//                  child: ListTile(
+//                    title: Container(
+//                      height: 150,
+//                      child: Center(child: Text("$index")),
+//                    ),
+//                    leading: ConstrainedBox(
+//                      constraints: BoxConstraints(
+//                        minWidth: 80,
+//                        minHeight: 130,
+//                        maxWidth: 140,
+//                        maxHeight: 140,
+//                      ),
+//                      child:
+//                          Image.asset('images/sample.jpg', fit: BoxFit.cover),
+//                    ),
+//                  ),
                 ),
               ),
             ),
