@@ -1,16 +1,28 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
+import 'package:flutter_pepper/app/widgets/common/error_dialog.dart';
+import 'package:provider/provider.dart';
 
 class CardListScreen extends StatelessWidget {
-  final list = List.generate(50, (index) => index);
+  CardListScreen({Key key}) : super(key: key) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _onWidgetBuilt());
+  }
+
+  final _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    final pepperViewModel = Provider.of<PepperViewModel>(context);
+    final shops = pepperViewModel.shops;
+
     return Scaffold(
       appBar: AppBar(title: Text("店舗一覧")),
+      key: _key,
       body: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
+        itemCount: shops.shop != null ? shops.shop.length : 0,
+        itemBuilder: (BuildContext context, int i) {
+          final shop = shops.shop[i];
           return AnimatedCard(
             direction: AnimatedCardDirection.left,
             //Initial animation direction
@@ -39,7 +51,7 @@ class CardListScreen extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            'ロケーション：',
+                            '${shop.name}',
                             style: TextStyle(
                               color: Colors.black.withOpacity(0.6),
                               fontSize: 14,
@@ -51,22 +63,6 @@ class CardListScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-//                  child: ListTile(
-//                    title: Container(
-//                      height: 150,
-//                      child: Center(child: Text("$index")),
-//                    ),
-//                    leading: ConstrainedBox(
-//                      constraints: BoxConstraints(
-//                        minWidth: 80,
-//                        minHeight: 130,
-//                        maxWidth: 140,
-//                        maxHeight: 140,
-//                      ),
-//                      child:
-//                          Image.asset('images/sample.jpg', fit: BoxFit.cover),
-//                    ),
-//                  ),
                 ),
               ),
             ),
@@ -74,5 +70,29 @@ class CardListScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _onWidgetBuilt() {
+    final context = _key.currentContext;
+    final pepperViewModel =
+        Provider.of<PepperViewModel>(context, listen: false);
+    pepperViewModel.setPepperDetail();
+    pepperViewModel.showErrorDialog.listen((showErrorDialog) {
+      if (!showErrorDialog) {
+        return;
+      }
+
+      showDialog<void>(
+        context: context,
+        builder: (context) {
+          return ErrorDialog(
+            title: 'エラー',
+            content: pepperViewModel.errorMessage,
+            positiveButtonText: '閉じる',
+            onPositiveButtonPressed: () => pepperViewModel.closeDialog(context),
+          );
+        },
+      );
+    });
   }
 }

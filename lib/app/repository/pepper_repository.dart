@@ -6,7 +6,7 @@ class PepperRepository {
 
   final PepperApiProvider _client;
 
-  Future<Shops> fetchPepperDetail() {
+  Future<Results> fetchPepperDetail() {
     return _client.fetchPepperDetail();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pepper/app/resorces/viewmodels/viewmodels.dart';
+import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
 import 'package:flutter_pepper/app/widgets/screens/card_list_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,5 +26,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
