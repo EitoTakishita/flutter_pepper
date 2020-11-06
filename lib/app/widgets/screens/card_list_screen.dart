@@ -1,7 +1,9 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pepper/app/resorces/viewmodels/location_viewmodels.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
 import 'package:flutter_pepper/app/widgets/common/error_dialog.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class CardListScreen extends StatelessWidget {
@@ -42,8 +44,8 @@ class CardListScreen extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          child: Image.asset(
-                            'images/sample.jpg',
+                          child: Image.network(
+                            '${shop.photo.mobile.l}',
                             fit: BoxFit.cover,
                             width: 130,
                             height: 130,
@@ -74,6 +76,31 @@ class CardListScreen extends StatelessWidget {
 
   void _onWidgetBuilt() {
     final context = _key.currentContext;
+
+    final locationViewModel =
+        Provider.of<LocationViewModel>(context, listen: false);
+    locationViewModel.getLocationPermission();
+    // locationViewModel.checkPermission();
+    locationViewModel.getLocation();
+    locationViewModel.showErrorDialog.listen((showErrorDialog) {
+      if (!showErrorDialog) {
+        return;
+      }
+
+      showDialog<void>(
+        context: context,
+        builder: (context) {
+          return ErrorDialog(
+            title: 'エラー',
+            content: locationViewModel.errorMessage,
+            positiveButtonText: '閉じる',
+            onPositiveButtonPressed: () =>
+                locationViewModel.closeDialog(context),
+          );
+        },
+      );
+    });
+
     final pepperViewModel =
         Provider.of<PepperViewModel>(context, listen: false);
     pepperViewModel.setPepperDetail();
@@ -94,5 +121,24 @@ class CardListScreen extends StatelessWidget {
         },
       );
     });
+  }
+
+  // void _checkLocationPermission() {
+  //   //ここで位置情報の権限を確認する
+  //   PermissionHan()
+  //       .checkPermissionStatus(PermissionGroup.location)
+  //       .then((status) {
+  //     if (status != PermissionStatus.granted) {
+  //       //拒否されたら権限を要求する
+  //       _requestLocationPermission();
+  //     }
+  //   });
+  // }
+
+  bool _requestLocationPermission() {
+    //ここで位置情報を許可しますか？みたいな画面が出る。
+    const status = Permission.location;
+    // ignore: unrelated_type_equality_checks
+    return status != PermissionStatus.granted;
   }
 }

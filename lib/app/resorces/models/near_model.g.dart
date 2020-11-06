@@ -8,27 +8,22 @@ part of 'near_model.dart';
 
 Shop _$ShopFromJson(Map<String, dynamic> json) {
   return Shop(
+    photo: Photo.fromJson(json['photo'] as Map<String, dynamic>),
     id: json['id'] as String,
     address: json['address'] as String,
-    lng: json['lng'] as String,
+    lng: (json['lng'] as num).toDouble(),
     show: json['show'] as String,
     name: json['name'] as String,
-    genre: json['genre'] as String,
+    genre: Genre.fromJson(json['genre'] as Map<String, dynamic>),
     open: json['open'] as String,
     shop_detail_memo: json['shop_detail_memo'] as String,
-    middle_area: json['middle_area'] as String,
-    lat: json['lat'] as String,
-    logo_image: json['logo_image'] as String,
-    urls: json['urls'] as String,
-    close: json['close'] as String,
-    budget_memo: json['budget_memo'] as String,
-    small_area: json['small_area'] as String,
+    lat: (json['lat'] as num).toDouble(),
     access: json['access'] as String,
-    sub_genre: json['sub_genre'] as String,
   );
 }
 
 Map<String, dynamic> _$ShopToJson(Shop instance) => <String, dynamic>{
+      'photo': instance.photo,
       'id': instance.id,
       'address': instance.address,
       'lng': instance.lng,
@@ -37,13 +32,76 @@ Map<String, dynamic> _$ShopToJson(Shop instance) => <String, dynamic>{
       'genre': instance.genre,
       'open': instance.open,
       'shop_detail_memo': instance.shop_detail_memo,
-      'middle_area': instance.middle_area,
       'lat': instance.lat,
-      'logo_image': instance.logo_image,
-      'urls': instance.urls,
-      'close': instance.close,
-      'budget_memo': instance.budget_memo,
-      'small_area': instance.small_area,
       'access': instance.access,
-      'sub_genre': instance.sub_genre,
+    };
+
+Genre _$GenreFromJson(Map<String, dynamic> json) {
+  return Genre(
+    code: json['code'] as String,
+    name: json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$GenreToJson(Genre instance) => <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+    };
+
+Photo _$PhotoFromJson(Map<String, dynamic> json) {
+  return Photo(
+    mobile: Mobile.fromJson(json['mobile'] as Map<String, dynamic>),
+    pc: Pc.fromJson(json['pc'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$PhotoToJson(Photo instance) => <String, dynamic>{
+      'mobile': instance.mobile,
+      'pc': instance.pc,
+    };
+
+Mobile _$MobileFromJson(Map<String, dynamic> json) {
+  return Mobile(
+    l: json['l'] as String,
+    s: json['s'] as String,
+  );
+}
+
+Map<String, dynamic> _$MobileToJson(Mobile instance) => <String, dynamic>{
+      'l': instance.l,
+      's': instance.s,
+    };
+
+Pc _$PcFromJson(Map<String, dynamic> json) {
+  return Pc(
+    l: json['l'] as String,
+    s: json['s'] as String,
+  );
+}
+
+Map<String, dynamic> _$PcToJson(Pc instance) => <String, dynamic>{
+      'l': instance.l,
+      's': instance.s,
+    };
+
+Shops _$ShopsFromJson(Map<String, dynamic> json) {
+  return Shops(
+    shop: (json['shop'] as List)
+        .map((e) => Shop.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$ShopsToJson(Shops instance) => <String, dynamic>{
+      'shop': instance.shop,
+    };
+
+Results _$ResultsFromJson(Map<String, dynamic> json) {
+  return Results(
+    results: Shops.fromJson(json['results'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ResultsToJson(Results instance) => <String, dynamic>{
+      'results': instance.results,
     };

@@ -14,3 +14,21 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## APIモックサーバーの起動
+
+`npm run boot-mock`
+
+## APIサーバーURLの切替
+
+base_api.dartでEnvironmentConfigのURLを書き換える
+
+`set url(String endpoint) {
+   // apiBaseUrl or mockServerUrl
+   final baseUrl = EnvironmentConfig.mockServerUrl;　★
+   _url = baseUrl + _endpoint(baseUrl, endpoint);
+ }`
+ 
+ ## *model.g.dart ファイル作成コマンド
+ 
+ `flutter packages pub run build_runner build`

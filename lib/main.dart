@@ -3,6 +3,8 @@ import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
 import 'package:flutter_pepper/app/widgets/screens/card_list_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'app/resorces/viewmodels/location_viewmodels.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PepperViewModel()),
+        ChangeNotifierProvider(create: (context) => LocationViewModel()),
       ],
       child: MaterialApp(
         title: '居酒屋ぺっぱー',

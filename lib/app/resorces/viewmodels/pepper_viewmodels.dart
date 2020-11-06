@@ -1,6 +1,6 @@
 import 'package:flutter_pepper/app/repository/pepper_repository.dart';
 import 'package:flutter_pepper/app/resorces/api/pepper_api.dart';
-import 'package:flutter_pepper/app/resorces/models/model.dart';
+import 'package:flutter_pepper/app/resorces/models/near_model.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/base_viewmodels.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
