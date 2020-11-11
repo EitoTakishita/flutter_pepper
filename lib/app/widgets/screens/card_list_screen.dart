@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/location_viewmodels.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
 import 'package:flutter_pepper/app/widgets/common/error_dialog.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class CardListScreen extends StatelessWidget {
@@ -82,6 +81,18 @@ class CardListScreen extends StatelessWidget {
     locationViewModel.getLocationPermission();
     // locationViewModel.checkPermission();
     locationViewModel.getLocation();
+
+    final pepperViewModel =
+        Provider.of<PepperViewModel>(context, listen: false);
+    locationViewModel.completedGetPosition.listen((completedGetPosition) {
+      if (!completedGetPosition) {
+        return;
+      }
+      final position = locationViewModel.currentPosition;
+      print(position);
+      pepperViewModel.setPepperDetail(position);
+    });
+
     locationViewModel.showErrorDialog.listen((showErrorDialog) {
       if (!showErrorDialog) {
         return;
@@ -101,9 +112,6 @@ class CardListScreen extends StatelessWidget {
       );
     });
 
-    final pepperViewModel =
-        Provider.of<PepperViewModel>(context, listen: false);
-    pepperViewModel.setPepperDetail();
     pepperViewModel.showErrorDialog.listen((showErrorDialog) {
       if (!showErrorDialog) {
         return;
@@ -121,24 +129,5 @@ class CardListScreen extends StatelessWidget {
         },
       );
     });
-  }
-
-  // void _checkLocationPermission() {
-  //   //ここで位置情報の権限を確認する
-  //   PermissionHan()
-  //       .checkPermissionStatus(PermissionGroup.location)
-  //       .then((status) {
-  //     if (status != PermissionStatus.granted) {
-  //       //拒否されたら権限を要求する
-  //       _requestLocationPermission();
-  //     }
-  //   });
-  // }
-
-  bool _requestLocationPermission() {
-    //ここで位置情報を許可しますか？みたいな画面が出る。
-    const status = Permission.location;
-    // ignore: unrelated_type_equality_checks
-    return status != PermissionStatus.granted;
   }
 }

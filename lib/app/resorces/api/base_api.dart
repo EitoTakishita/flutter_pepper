@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_pepper/app/resorces/environment_config.dart';
 import 'package:http/http.dart' as http;
 
 class BaseApiProvider {
@@ -10,8 +9,13 @@ class BaseApiProvider {
 
   Future<Map<String, dynamic>> post() async {
     try {
-      final body = json.encode(parameters);
-      final response = await http.get(EnvironmentConfig.apiBaseUrl);
+      // final body = json.encode(parameters);
+      var uri = Uri.https(
+          'webservice.recruit.co.jp', '/hotpepper/gourmet/v1/', parameters);
+      // final response = await http
+      //     .post(EnvironmentConfig.apiBaseUrl, body: body)
+      //     .timeout(const Duration(seconds: 25));
+      final response = await http.get(uri);
       parameters = {};
       if (response.statusCode == 200) {
         final _decodedResponse =
