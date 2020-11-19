@@ -12,6 +12,8 @@ class PepperViewModel extends BaseViewModel {
 
   Shops get shops => _shops ?? <Shop>[];
   String errorMessage;
+  bool hasPadding = false;
+  int heroTag = 0;
 
   Future<void> setPepperDetail(Position position) async {
     final results =
