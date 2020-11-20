@@ -13,7 +13,7 @@ class PepperViewModel extends BaseViewModel {
   Shops get shops => _shops ?? <Shop>[];
   String errorMessage;
   bool hasPadding = false;
-  int heroTag = 0;
+  String heroTag;
 
   Future<void> setPepperDetail(Position position) async {
     final results =
@@ -29,5 +29,10 @@ class PepperViewModel extends BaseViewModel {
       errorMessage = '店舗情報が取得できませんでした';
       super.showErrorDialogController.sink.add(true);
     }
+  }
+
+  setPadding(bool has) {
+    hasPadding = has;
+    notifyListeners();
   }
 }

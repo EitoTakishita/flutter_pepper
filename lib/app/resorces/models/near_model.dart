@@ -11,23 +11,29 @@ class Shop {
   final String show;
   final String name;
   final Genre genre;
-  final String open;
-  final String shop_detail_memo;
+  @JsonKey(name: 'shop_detail_memo')
+  final String memo;
   final double lat; // double
   final String access;
+  @JsonKey(name: 'catch')
+  final String catchCopy;
+  @JsonKey(name: 'open')
+  final String time;
 
-  Shop(
-      {this.photo,
-      this.id,
-      this.address,
-      this.lng,
-      this.show,
-      this.name,
-      this.genre,
-      this.open,
-      this.shop_detail_memo,
-      this.lat,
-      this.access});
+  Shop({
+    this.photo,
+    this.id,
+    this.address,
+    this.lng,
+    this.show,
+    this.name,
+    this.genre,
+    this.memo,
+    this.lat,
+    this.access,
+    this.catchCopy,
+    this.time,
+  });
 
   factory Shop.fromJson(Map<String, dynamic> json) => _$ShopFromJson(json);
 }

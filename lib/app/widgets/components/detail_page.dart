@@ -34,7 +34,7 @@ class DetailPage extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Image.asset(
-              'image/image.jpg',
+              'images/sample.jpg',
               fit: BoxFit.cover,
             ),
             Column(

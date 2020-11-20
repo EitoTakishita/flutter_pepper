@@ -21,25 +21,24 @@ class CardListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("店舗一覧")),
       key: _key,
-      body: PageView.builder(
+      body: ListView.builder(
         controller: PageController(viewportFraction: 0.8),
+        // scrollDirection: Axis.vertical,
         itemCount: shops.shop != null ? shops.shop.length : 0,
         itemBuilder: (BuildContext context, int i) {
           final shop = shops.shop[i];
           return AnimatedCard(
             direction: AnimatedCardDirection.left,
-            //Initial animation direction
             initDelay: Duration(milliseconds: 0),
-            //Delay to initial animation
             duration: Duration(seconds: 1),
             curve: Curves.bounceOut,
-            //Animation curve
             child: AnimatedPadding(
               duration: const Duration(milliseconds: 80),
               padding: EdgeInsets.all(pepperViewModel.hasPadding ? 10 : 0),
               child: GestureDetector(
                 onTap: () {
-                  pepperViewModel.hasPadding = false;
+                  pepperViewModel.setPadding(true);
+                  pepperViewModel.heroTag = 'heroTag';
                   Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -47,12 +46,18 @@ class CardListScreen extends StatelessWidget {
                         pageBuilder: (_, __, ___) => DetailPage(),
                       ));
                 },
+                onTapDown: (TapDownDetails details) {
+                  pepperViewModel.setPadding(true);
+                },
+                onTapCancel: () {
+                  pepperViewModel.setPadding(false);
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      height: 300,
+                      height: 150,
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -63,35 +68,42 @@ class CardListScreen extends StatelessWidget {
                               height: 130,
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  '${shop.name}',
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Noto Sans CJK JP',
-                                    letterSpacing: 0.25,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 20, left: 16, bottom: 10),
+                                  child: Text(
+                                    '${shop.name}',
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Noto Sans CJK JP',
+                                      letterSpacing: 0.25,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  '${shop.shop_detail_memo}',
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                    color: Colors.black.withOpacity(0.6),
-                                    fontSize: 14,
-                                    fontFamily: 'Noto Sans CJK JP',
-                                    letterSpacing: 0.25,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: Text(
+                                    '${shop.catchCopy}',
+                                    maxLines: 2,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans CJK JP',
+                                      letterSpacing: 0.25,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
