@@ -15,10 +15,11 @@ Shop _$ShopFromJson(Map<String, dynamic> json) {
     show: json['show'] as String,
     name: json['name'] as String,
     genre: Genre.fromJson(json['genre'] as Map<String, dynamic>),
-    open: json['open'] as String,
-    shop_detail_memo: json['shop_detail_memo'] as String,
+    memo: json['shop_detail_memo'] as String,
     lat: (json['lat'] as num).toDouble(),
     access: json['access'] as String,
+    catchCopy: json['catch'] as String,
+    time: json['open'] as String,
   );
 }
 
@@ -30,10 +31,11 @@ Map<String, dynamic> _$ShopToJson(Shop instance) => <String, dynamic>{
       'show': instance.show,
       'name': instance.name,
       'genre': instance.genre,
-      'open': instance.open,
-      'shop_detail_memo': instance.shop_detail_memo,
+      'shop_detail_memo': instance.memo,
       'lat': instance.lat,
       'access': instance.access,
+      'catch': instance.catchCopy,
+      'open': instance.time,
     };
 
 Genre _$GenreFromJson(Map<String, dynamic> json) {

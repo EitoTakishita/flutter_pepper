@@ -27,85 +27,89 @@ class CardListScreen extends StatelessWidget {
         itemCount: shops.shop != null ? shops.shop.length : 0,
         itemBuilder: (BuildContext context, int i) {
           final shop = shops.shop[i];
-          return AnimatedCard(
-            direction: AnimatedCardDirection.left,
-            initDelay: Duration(milliseconds: 0),
-            duration: Duration(seconds: 1),
-            curve: Curves.bounceOut,
-            child: AnimatedPadding(
-              duration: const Duration(milliseconds: 80),
-              padding: EdgeInsets.all(pepperViewModel.hasPadding ? 10 : 0),
-              child: GestureDetector(
-                onTap: () {
-                  pepperViewModel.setPadding(true);
-                  pepperViewModel.heroTag = 'heroTag';
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 500),
-                        pageBuilder: (_, __, ___) => DetailPage(),
-                      ));
-                },
-                onTapDown: (TapDownDetails details) {
-                  pepperViewModel.setPadding(true);
-                },
-                onTapCancel: () {
-                  pepperViewModel.setPadding(false);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Card(
-                    elevation: 5,
-                    child: Container(
-                      height: 150,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            child: Image.network(
-                              '${shop.photo.mobile.l}',
-                              fit: BoxFit.cover,
-                              width: 130,
-                              height: 130,
+          return Hero(
+            tag: shop.name,
+            child: AnimatedCard(
+              direction: AnimatedCardDirection.left,
+              initDelay: Duration(milliseconds: 0),
+              duration: Duration(seconds: 1),
+              curve: Curves.bounceOut,
+              child: AnimatedPadding(
+                duration: const Duration(milliseconds: 80),
+                padding: EdgeInsets.all(pepperViewModel.hasPadding ? 10 : 0),
+                child: GestureDetector(
+                  onTap: () {
+                    pepperViewModel.setPadding(true);
+                    pepperViewModel.heroTag = shop.name;
+                    pepperViewModel.shopDetail = shop;
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          transitionDuration: Duration(milliseconds: 1000),
+                          pageBuilder: (_, __, ___) => DetailPage(),
+                        ));
+                  },
+                  onTapDown: (TapDownDetails details) {
+                    pepperViewModel.setPadding(true);
+                  },
+                  onTapCancel: () {
+                    pepperViewModel.setPadding(false);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        height: 150,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              child: Image.network(
+                                '${shop.photo.mobile.l}',
+                                fit: BoxFit.cover,
+                                width: 130,
+                                height: 130,
+                              ),
                             ),
-                          ),
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, left: 16, bottom: 10),
-                                  child: Text(
-                                    '${shop.name}',
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Noto Sans CJK JP',
-                                      letterSpacing: 0.25,
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 16, bottom: 10),
+                                    child: Text(
+                                      '${shop.name}',
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Noto Sans CJK JP',
+                                        letterSpacing: 0.25,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16),
-                                  child: Text(
-                                    '${shop.catchCopy}',
-                                    maxLines: 2,
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans CJK JP',
-                                      letterSpacing: 0.25,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 16),
+                                    child: Text(
+                                      '${shop.catchCopy}',
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans CJK JP',
+                                        letterSpacing: 0.25,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

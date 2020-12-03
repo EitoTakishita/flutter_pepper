@@ -9,12 +9,8 @@ class BaseApiProvider {
 
   Future<Map<String, dynamic>> post() async {
     try {
-      // final body = json.encode(parameters);
       var uri = Uri.https(
           'webservice.recruit.co.jp', '/hotpepper/gourmet/v1/', parameters);
-      // final response = await http
-      //     .post(EnvironmentConfig.apiBaseUrl, body: body)
-      //     .timeout(const Duration(seconds: 25));
       final response = await http.get(uri);
       parameters = {};
       if (response.statusCode == 200) {
