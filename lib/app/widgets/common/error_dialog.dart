@@ -31,7 +31,7 @@ class ErrorDialog extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontFamily: 'Noto Sans CJK JP',
+        fontFamily: 'Honya',
         fontSize: 14,
         letterSpacing: 0.75,
         color: Color(0xff475499),

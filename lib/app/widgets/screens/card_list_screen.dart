@@ -19,7 +19,11 @@ class CardListScreen extends StatelessWidget {
     final shops = pepperViewModel.shops;
 
     return Scaffold(
-      appBar: AppBar(title: Text("店舗一覧")),
+      appBar: AppBar(
+          title: Text(
+        '店舗一覧',
+        style: TextStyle(fontFamily: 'Honya'),
+      )),
       key: _key,
       body: ListView.builder(
         controller: PageController(viewportFraction: 0.8),
@@ -36,7 +40,7 @@ class CardListScreen extends StatelessWidget {
               curve: Curves.bounceOut,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 80),
-                padding: EdgeInsets.all(pepperViewModel.hasPadding ? 10 : 0),
+                padding: EdgeInsets.all(pepperViewModel.hasPadding ? 0 : 0),
                 child: GestureDetector(
                   onTap: () {
                     pepperViewModel.setPadding(true);
@@ -59,56 +63,59 @@ class CardListScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Card(
                       elevation: 5,
-                      child: Container(
-                        height: 150,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              child: Image.network(
-                                '${shop.photo.mobile.l}',
-                                fit: BoxFit.cover,
-                                width: 130,
-                                height: 130,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: Container(
+                          height: 150,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Image.network(
+                                  '${shop.photo.mobile.l}',
+                                  fit: BoxFit.cover,
+                                  width: 130,
+                                  height: 130,
+                                ),
                               ),
-                            ),
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, left: 16, bottom: 10),
-                                    child: Text(
-                                      '${shop.name}',
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Noto Sans CJK JP',
-                                        letterSpacing: 0.25,
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20, left: 16, bottom: 10),
+                                      child: Text(
+                                        '${shop.name}',
+                                        maxLines: 1,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Honya',
+                                          letterSpacing: 0.25,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: Text(
-                                      '${shop.catchCopy}',
-                                      maxLines: 2,
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontFamily: 'Noto Sans CJK JP',
-                                        letterSpacing: 0.25,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: Text(
+                                        '${shop.catchCopy}',
+                                        maxLines: 2,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Honya',
+                                          letterSpacing: 0.25,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

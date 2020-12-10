@@ -29,9 +29,9 @@ class ShopInfo extends StatelessWidget {
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Noto Sans CJK JP',
+                fontFamily: 'Honya',
                 letterSpacing: 1.25,
               ),
             ),
@@ -48,11 +48,11 @@ class ShopInfo extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
-              shop.access,
+              '★ ${shop.access}',
               style: TextStyle(
                   color: Colors.black.withOpacity(0.75),
                   fontSize: 16,
-                  fontFamily: 'Noto Sans CJK JP',
+                  fontFamily: 'Honya',
                   letterSpacing: 1.25,
                   height: 1.1),
             ),

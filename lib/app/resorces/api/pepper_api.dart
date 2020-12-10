@@ -6,6 +6,9 @@ class PepperApiProvider extends BaseApiProvider {
     super.parameters.putIfAbsent('key', () => '96bbd4feacfd779d');
     super.parameters.putIfAbsent('lng', () => longitude.toString());
     super.parameters.putIfAbsent('lat', () => latitude.toString());
+    // オススメ順
+    super.parameters.putIfAbsent('order', () => '4');
+    super.parameters.putIfAbsent('count', () => '100');
     super.parameters.putIfAbsent('format', () => 'json');
     final response = await super.post();
     if (response != null) {
