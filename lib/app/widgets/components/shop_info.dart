@@ -84,7 +84,7 @@ class ShopInfo extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  'Mapで見る',
+                  'マップで見る',
                   style: TextStyle(
                     color: Colors.blue,
                     fontSize: 18,
