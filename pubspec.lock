@@ -226,6 +226,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttery_dart2:
+    dependency: "direct main"
+    description:
+      name: fluttery_dart2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.9"
   freezed:
     dependency: "direct main"
     description:
@@ -588,6 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0+2"
+  tcard:
+    dependency: "direct main"
+    description:
+      name: tcard
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2"
   term_glyph:
     dependency: transitive
     description:
