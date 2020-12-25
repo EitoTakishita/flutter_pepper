@@ -4,6 +4,9 @@ class Styles {
   /* Theme Primary Color */
   static const colorPrimary = Color(0xFF333333);
 
+  /* Base Color */
+  static const baseColor = Color(0xFFeedcb3);
+
   /* Black — High Emphasis */
   static const colorBlackHighEmphasis = Color.fromRGBO(0, 0, 0, 0.87);
 

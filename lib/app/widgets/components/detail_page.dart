@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
+import 'package:flutter_pepper/app/util/styles.dart';
 import 'package:flutter_pepper/app/widgets/components/shop_info.dart';
 import 'package:provider/provider.dart';
 
@@ -9,18 +10,20 @@ class DetailPage extends StatelessWidget {
     final pepperViewModel =
         Provider.of<PepperViewModel>(context, listen: false);
     return Scaffold(
+        backgroundColor: Styles.baseColor,
         body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          child: Hero(
-            tag: pepperViewModel.heroTag,
-            child: imageContents(context),
-          ),
-        ),
-        ShopInfo(),
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              color: Styles.baseColor,
+              child: Hero(
+                tag: pepperViewModel.heroTag,
+                child: imageContents(context),
+              ),
+            ),
+            ShopInfo(),
+          ],
+        ));
   }
 
   // 画像Widget
@@ -31,7 +34,7 @@ class DetailPage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       child: Container(
           height: 320,
-          color: Colors.white,
+          color: Styles.baseColor,
           child: Container(
               child: Stack(
             children: <Widget>[
