@@ -48,6 +48,8 @@ dependencies:
   maps_launcher: ^1.2.2+2
   fluttery_dart2: ^0.0.9
   tcard: ^1.2.2
+  appbar_textfield: ^1.0.1+1
+  shared_preferences: ^0.5.8
 
 dev_dependencies:
   flutter_test:

@@ -76,6 +76,35 @@ class ShopInfo extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              '営業時間',
+              maxLines: 2,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Honya',
+                letterSpacing: 0.25,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, bottom: 16),
+            child: Text(
+              '${shop.time}',
+              maxLines: 2,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontFamily: 'Honya',
+                letterSpacing: 0.25,
+              ),
+            ),
+          ),
           Center(
             child: GestureDetector(
               onTap: () {
@@ -95,7 +124,7 @@ class ShopInfo extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:appbar_textfield/appbar_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/location_viewmodels.dart';
 import 'package:flutter_pepper/app/resorces/viewmodels/pepper_viewmodels.dart';
@@ -17,21 +18,36 @@ class CardListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pepperViewModel = Provider.of<PepperViewModel>(context);
     return Scaffold(
-      appBar: AppBar(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBarTextField(
         title: Text(
-          '店舗一覧',
-          style: TextStyle(color: Colors.black, fontFamily: 'Honya'),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.sort_rounded,
-              color: Colors.black,
-            ),
-            onPressed: pepperViewModel.setComponent,
+          pepperViewModel.barTitle.isNotEmpty
+              ? '${pepperViewModel.barTitle} の検索結果...'
+              : 'キーワードを設定できます',
+          style: TextStyle(
+            color: pepperViewModel.barTitle == 'キーワードを設定できます'
+                ? Colors.black.withOpacity(0.5)
+                : Colors.black,
+            fontFamily: 'Honya',
           ),
-        ],
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.sort_rounded,
+            color: Colors.black,
+          ),
+          onPressed: pepperViewModel.setComponent,
+        ),
+        searchButtonIcon: Icon(
+          Icons.search,
+          color: Colors.black,
+        ),
+        cursorColor: Colors.black,
+        searchContainerColor: Styles.baseColor,
         backgroundColor: Styles.baseColor,
+        onBackPressed: () => pepperViewModel.confirmKeyword(),
+        onClearPressed: () => pepperViewModel.barTitle = '',
+        onChanged: (String value) => pepperViewModel.barTitle = value,
       ),
       key: _key,
       body: Container(
@@ -58,8 +74,8 @@ class CardListScreen extends StatelessWidget {
     locationViewModel.getLocationPermission();
     locationViewModel.getLocation();
 
-    final pepperViewModel =
-        Provider.of<PepperViewModel>(context, listen: false);
+    final pepperViewModel = Provider.of<PepperViewModel>(context, listen: false)
+      ..initialize();
     locationViewModel.completedGetPosition.listen((completedGetPosition) {
       if (!completedGetPosition) {
         return;

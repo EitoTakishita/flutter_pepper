@@ -7,6 +7,7 @@ import 'package:flutter_pepper/app/widgets/components/card_list_component.dart';
 import 'package:flutter_pepper/app/widgets/components/tinder_like_component.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PepperViewModel extends BaseViewModel {
@@ -20,6 +21,19 @@ class PepperViewModel extends BaseViewModel {
   Shop shopDetail = Shop();
   bool isShowCardList = true;
   Widget switchedWidget;
+  String barTitle = 'キーワードを設定できます';
+
+  Future<void> initialize() async {
+    final _pref = await SharedPreferences.getInstance();
+    barTitle = _pref.getString('keyword') ?? 'キーワードを設定できます';
+    notifyListeners();
+  }
+
+  Future<void> confirmKeyword() async {
+    final _pref = await SharedPreferences.getInstance();
+    await _pref.setString('keyword', barTitle);
+    notifyListeners();
+  }
 
   Future<void> setPepperDetail(Position position) async {
     final results =
