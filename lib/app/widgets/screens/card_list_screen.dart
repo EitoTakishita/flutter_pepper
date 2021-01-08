@@ -25,9 +25,9 @@ class CardListScreen extends StatelessWidget {
               ? '${pepperViewModel.barTitle} の検索結果...'
               : 'キーワードを設定できます',
           style: TextStyle(
-            color: pepperViewModel.barTitle == 'キーワードを設定できます'
-                ? Colors.black.withOpacity(0.5)
-                : Colors.black,
+            color: pepperViewModel.barTitle.isNotEmpty
+                ? Colors.black
+                : Colors.black.withOpacity(0.5),
             fontFamily: 'Honya',
           ),
         ),

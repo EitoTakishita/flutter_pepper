@@ -21,11 +21,11 @@ class PepperViewModel extends BaseViewModel {
   Shop shopDetail = Shop();
   bool isShowCardList = true;
   Widget switchedWidget;
-  String barTitle = 'キーワードを設定できます';
+  String barTitle = '';
 
   Future<void> initialize() async {
     final _pref = await SharedPreferences.getInstance();
-    barTitle = _pref.getString('keyword') ?? 'キーワードを設定できます';
+    barTitle = _pref.getString('keyword') ?? '';
     notifyListeners();
   }
 
