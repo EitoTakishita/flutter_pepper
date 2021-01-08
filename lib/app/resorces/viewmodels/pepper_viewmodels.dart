@@ -7,6 +7,7 @@ import 'package:flutter_pepper/app/widgets/components/card_list_component.dart';
 import 'package:flutter_pepper/app/widgets/components/tinder_like_component.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path/path.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -23,7 +24,11 @@ class PepperViewModel extends BaseViewModel {
   Widget switchedWidget;
   String barTitle = '';
 
+  final _completedEditKeyword = BehaviorSubject<bool>();
+  Stream<bool> get completedEditKeyword => _completedEditKeyword.stream;
+
   Future<void> initialize() async {
+    _completedEditKeyword.sink.add(false);
     final _pref = await SharedPreferences.getInstance();
     barTitle = _pref.getString('keyword') ?? '';
     notifyListeners();
@@ -32,12 +37,13 @@ class PepperViewModel extends BaseViewModel {
   Future<void> confirmKeyword() async {
     final _pref = await SharedPreferences.getInstance();
     await _pref.setString('keyword', barTitle);
+    _completedEditKeyword.sink.add(true);
     notifyListeners();
   }
 
   Future<void> setPepperDetail(Position position) async {
-    final results =
-        await repo.fetchPepperDetail(position.longitude, position.latitude);
+    final results = await repo.fetchPepperDetail(
+        position.longitude, position.latitude, barTitle);
     if (results != null) {
       super.showErrorDialogController.sink.add(false);
       _shops = results.results;
@@ -52,7 +58,6 @@ class PepperViewModel extends BaseViewModel {
   }
 
   setComponent() {
-    print('Takishita setComponent');
     isShowCardList = !isShowCardList;
     switchedWidget =
         isShowCardList ? CardListComponent() : TinderLikeComponent();
@@ -65,8 +70,13 @@ class PepperViewModel extends BaseViewModel {
   }
 
   void switchWidget() {
-    print('Takishita switched');
     isShowCardList = !isShowCardList;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _completedEditKeyword.close();
   }
 }

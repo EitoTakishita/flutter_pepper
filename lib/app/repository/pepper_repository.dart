@@ -6,7 +6,8 @@ class PepperRepository {
 
   final PepperApiProvider _client;
 
-  Future<Results> fetchPepperDetail(double longitude, double latitude) {
-    return _client.fetchPepperDetail(longitude, latitude);
+  Future<Results> fetchPepperDetail(
+      double longitude, double latitude, String keyword) {
+    return _client.fetchPepperDetail(longitude, latitude, keyword);
   }
 }

@@ -112,31 +112,33 @@ class TinderLikeComponent extends StatelessWidget {
       },
     );
 
-    return Center(
-      child: TCard(
-        cards: cards,
-        size: Size(380, 580),
-        controller: _controller,
-        onForward: (index, info) {
-          print(index);
-          print(info.direction);
-          if (info.direction == SwipDirection.Right) {
-            _launchMaps(
-                name: shops.shop[index].name,
-                lat: shops.shop[index].lat,
-                lon: shops.shop[index].lng);
-          } else {
-            print('nope');
-          }
-        },
-        onBack: (index) {
-          print('nope');
-        },
-        onEnd: () {
-          print('end');
-        },
-      ),
-    );
+    return cards.length > 0
+        ? Center(
+            child: TCard(
+              cards: cards,
+              size: Size(380, 580),
+              controller: _controller,
+              onForward: (index, info) {
+                print(index);
+                print(info.direction);
+                if (info.direction == SwipDirection.Right) {
+                  _launchMaps(
+                      name: shops.shop[index].name,
+                      lat: shops.shop[index].lat,
+                      lon: shops.shop[index].lng);
+                } else {
+                  print('nope');
+                }
+              },
+              onBack: (index) {
+                print('nope');
+              },
+              onEnd: () {
+                print('end');
+              },
+            ),
+          )
+        : Container();
   }
 
   void _launchMaps({String name, double lat, double lon}) async {

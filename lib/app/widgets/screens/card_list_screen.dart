@@ -18,6 +18,7 @@ class CardListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pepperViewModel = Provider.of<PepperViewModel>(context);
     return Scaffold(
+      key: _key,
       resizeToAvoidBottomInset: false,
       appBar: AppBarTextField(
         title: Text(
@@ -42,6 +43,7 @@ class CardListScreen extends StatelessWidget {
           Icons.search,
           color: Colors.black,
         ),
+        clearBtnIcon: Icon(Icons.close, color: Colors.black),
         cursorColor: Colors.black,
         searchContainerColor: Styles.baseColor,
         backgroundColor: Styles.baseColor,
@@ -49,7 +51,6 @@ class CardListScreen extends StatelessWidget {
         onClearPressed: () => pepperViewModel.barTitle = '',
         onChanged: (String value) => pepperViewModel.barTitle = value,
       ),
-      key: _key,
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -66,6 +67,19 @@ class CardListScreen extends StatelessWidget {
     );
   }
 
+  void searchShops() {
+    final context = _key.currentContext;
+
+    final pepperViewModel =
+        Provider.of<PepperViewModel>(context, listen: false);
+    final locationViewModel =
+        Provider.of<LocationViewModel>(context, listen: false);
+
+    final position = locationViewModel.currentPosition;
+    print(position);
+    pepperViewModel.setPepperDetail(position);
+  }
+
   void _onWidgetBuilt() {
     final context = _key.currentContext;
 
@@ -80,9 +94,14 @@ class CardListScreen extends StatelessWidget {
       if (!completedGetPosition) {
         return;
       }
-      final position = locationViewModel.currentPosition;
-      print(position);
-      pepperViewModel.setPepperDetail(position);
+      searchShops();
+    });
+
+    pepperViewModel.completedEditKeyword.listen((completedEditKeyword) {
+      if (!completedEditKeyword) {
+        return;
+      }
+      searchShops();
     });
 
     // Default
