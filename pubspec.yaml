@@ -50,6 +50,8 @@ dependencies:
   tcard: ^1.2.2
   appbar_textfield: ^1.0.1+1
   shared_preferences: ^0.5.8
+  flutter_fortune_wheel: ^0.2.2
+  swipedetector: 1.2.0
 
 dev_dependencies:
   flutter_test:
